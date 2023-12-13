@@ -1,11 +1,12 @@
 import Container from './Form.styled';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'store/contactsSlice';
+import { addContact } from '../../Redux/contactsSlice';
+import { selectorContacts } from '../../Redux/selectors';
 const Form = () => {
   const [data, setData] = useState({ name: '', number: '' });
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(selectorContacts);
   const handleChange = e => {
     let { name, value } = e.target;
     setData(prev => ({ ...prev, [name]: value }));

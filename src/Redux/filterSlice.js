@@ -1,9 +1,8 @@
-import { initialState } from './initialState';
 import { createSlice } from '@reduxjs/toolkit';
 
 const filterSlice = createSlice({
   name: 'filter',
-  initialState: initialState.filter,
+  initialState: '',
   reducers: {
     changeFilter: {
       reducer(state, action) {

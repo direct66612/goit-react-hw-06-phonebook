@@ -1,4 +1,4 @@
-import { changeFilter } from 'store/filterSlice';
+import { changeFilter } from '../../Redux/filterSlice';
 import { useDispatch } from 'react-redux';
 import Container from './Filter.styled';
 export const Filter = () => {
