@@ -1,19 +1,29 @@
 import Container from './Form.styled';
 import { useState } from 'react';
-const Form = ({ handleSubmit }) => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const NameChange = e => {
-    setName(e.target.value);
-  };
-  const NumberChange = e => {
-    setNumber(e.target.value);
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'store/contactsSlice';
+const Form = () => {
+  const [data, setData] = useState({ name: '', number: '' });
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
+  const handleChange = e => {
+    let { name, value } = e.target;
+    setData(prev => ({ ...prev, [name]: value }));
   };
   const resetForm = e => {
     e.preventDefault();
-    handleSubmit({ name, number });
-    setName('');
-    setNumber('');
+
+    if (
+      contacts.some(
+        contact => contact.name.toLowerCase() === data.name.toLowerCase()
+      )
+    ) {
+      alert(`${data.name} is already in contactcs!`);
+      return;
+    }
+
+    dispatch(addContact(data));
+    setData({ name: '', number: '' });
   };
   return (
     <Container>
@@ -23,15 +33,15 @@ const Form = ({ handleSubmit }) => {
           className="input__name"
           type="text"
           name="name"
-          value={name}
-          onChange={NameChange}
+          value={data.name}
+          onChange={handleChange}
         />
         <input
           className="input__tel"
           type="tel"
           name="number"
-          value={number}
-          onChange={NumberChange}
+          value={data.number}
+          onChange={handleChange}
           required
         />
         <button className="input__btn" type="submit">

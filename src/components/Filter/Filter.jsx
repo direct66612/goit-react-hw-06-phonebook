@@ -1,6 +1,11 @@
-import React from 'react';
+import { changeFilter } from 'store/filterSlice';
+import { useDispatch } from 'react-redux';
 import Container from './Filter.styled';
-export const Filter = ({ value, handleFilter }) => {
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const handleFilter = e => {
+    dispatch(changeFilter(e.currentTarget.value));
+  };
   return (
     <Container>
       <h3>Find contacts by name</h3>
@@ -8,7 +13,6 @@ export const Filter = ({ value, handleFilter }) => {
         className="input__filter"
         type="text"
         name="contact_name"
-        value={value}
         placeholder="Search..."
         onChange={handleFilter}
       />
